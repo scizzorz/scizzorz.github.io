@@ -4,3 +4,6 @@
 [submodule "python"]
 	path = python
 	url = https://github.com/scizzorz/slag-python.git
+[submodule "mask"]
+	path = mask
+	url = https://github.com/scizzorz/slag-mask.git

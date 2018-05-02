@@ -4,4 +4,5 @@ hrefsuffix = false
 paths = [
   'general',
   'python',
+  'mask',
 ]

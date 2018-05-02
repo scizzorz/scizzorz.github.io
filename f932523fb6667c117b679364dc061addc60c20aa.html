@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>NaN is baNaNas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://scizzorz.github.io/css/normalize.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="https://scizzorz.github.io/css/skeleton.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="https://scizzorz.github.io/css/pygments.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="https://scizzorz.github.io/css/main.css" media="screen">
+  </head>
+
+  <body>
+    <section class="container markdown-body">
+      <nav id="main">
+        
+          <a href="https://scizzorz.github.io/">/</a>
+        
+          <a href="https://scizzorz.github.io/general">/general</a>
+        
+          <a href="https://scizzorz.github.io/python">/python</a>
+        
+          <a href="https://scizzorz.github.io/mask">/mask</a>
+        
+      </nav>
+
+      
+  
+    <article>
+      <header>
+        <a href="https://scizzorz.github.io/f932523fb6667c117b679364dc061addc60c20aa">
+          NaN is baNaNas
+        </a>
+      </header>
+
+      <span class="byline">
+        by <span class="author">John Weachock</span>
+        in <span class="repo">
+          <a href="https://scizzorz.github.io/mask">
+            /mask
+          </a>
+        </span>
+        at <time>May  2, 01:29pm</time>
+      </span>
+
+      <p>For <a href="https://github.com/scizzorz/mask">Mask</a>, I only have plans for one
+compound data type, a hash table, which should operate in a familiar way to
+most dynamic languages with a similar construct: dicts in Python, objects in
+JS, tables in Lua, etc. In all of these languages, you can index into the
+construct using floats. This is slightly more complicated than I expected.</p><p>Hash tables typically use an equality test to pull out the right value.</p><p>The float magic value <code>NaN</code> drops the reflexive property, which means
+<code>NaN == NaN</code> is false.</p><p>So what happens when <code>NaN</code> is used as a key?</p><h2>Python</h2><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">nan</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;banana&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="p">{</span><span class="n">nan</span><span class="p">:</span> <span class="s1">&#39;banana&#39;</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan</span><span class="p">]</span>
+<span class="s1">&#39;banana&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">nan</span> <span class="o">==</span> <span class="n">nan</span>
+<span class="bp">False</span>
+</pre></div><p>Somehow, you can correctly insert and get a value out of a dict using a <code>NaN</code>
+key, despite <code>NaN</code> not being equal to itself. However...</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">nan2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan2</span><span class="p">]</span>
+<span class="ne">KeyError</span><span class="p">:</span> <span class="n">nan</span>
+</pre></div><p>If you use a <em>different</em> <code>NaN</code>, it doesn't work! The secret is that Python
+actually uses an identity check <em>before</em> an equality check.</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">nan</span> <span class="ow">is</span> <span class="n">nan</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">nan2</span> <span class="ow">is</span> <span class="n">nan</span>
+<span class="bp">False</span>
+</pre></div><p>Because <code>nan</code> is the same object as <code>nan</code>, the identity check passes and the
+dict lookup succeeds. Because <code>nan2</code> is a different object, the identity check
+fails, and lookup moves to the equality check. Because <code>NaN</code> is not equal to
+itself, the equality check also fails, and the lookup aborts with a <code>KeyError</code>.
+This means that we can use <em>both</em> <code>NaN</code> objects as keys successfully.</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;apple&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="p">{</span><span class="n">nan</span><span class="p">:</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="n">nan</span><span class="p">:</span> <span class="s1">&#39;apple&#39;</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan</span><span class="p">]</span>
+<span class="s1">&#39;banana&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan2</span><span class="p">]</span>
+<span class="s1">&#39;apple&#39;</span>
+</pre></div><p>Neat, I guess, but it's inconsistent with my expectations: either <code>NaN</code> keys
+are impossible to retrieve from a dict, or all <code>NaN</code> keys resolve to the same
+thing.</p><h2>JavaScript</h2><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nx">nan</span> <span class="o">=</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nx">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nx">d</span><span class="p">[</span><span class="nx">nan</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;banana&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nx">d</span>
+<span class="p">{</span><span class="kc">NaN</span><span class="o">:</span> <span class="s1">&#39;banana&#39;</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nx">d</span><span class="p">[</span><span class="nx">nan</span><span class="p">]</span>
+<span class="s1">&#39;banana&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nx">nan</span> <span class="o">===</span> <span class="nx">nan</span>
+</pre></div><p>Again, somehow you can correctly insert and get a value out of an object using
+a <code>NaN</code> key. However...</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nx">nan2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nx">d</span><span class="p">[</span><span class="nx">nan2</span><span class="p">]</span>
+<span class="s1">&#39;banana&#39;</span>
+</pre></div><p>This time, different <code>NaN</code>s both index to the same value! This is because
+JavaScript likes to stringify its keys before hashing or checking anything, so
+both of these <code>NaN</code>s get turned into <code>'NaN'</code>:</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nx">d</span><span class="p">[</span><span class="s1">&#39;NaN&#39;</span><span class="p">]</span>
+<span class="s1">&#39;banana&#39;</span>
+</pre></div><p>Less neat, but it's more intuitive than Python's implementation, which makes it
+less likely to cause hard-to-find bugs.</p><h2>Lua</h2><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">nan</span> <span class="o">=</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;banana&#39;</span>
+<span class="n">table</span> <span class="n">index</span> <span class="n">is</span> <span class="n">NaN</span>
+</pre></div><p>Lua throws an error. That's okay too.</p><h2>Mask</h2><p>I haven't quite decided yet, but I'm leaning towards using the
+<a href="https://rust-bio.github.io/rust-bio/ordered_float/struct.OrderedFloat.html">ordered-float</a>
+crate, which contradicts the IEEE standard and adds the reflexive property back
+into <code>NaN</code>s. This would provide similar behavior to JS regarding <code>NaN</code>, but
+would avoid some of the nasty consequences of stringifying all keys.</p>
+    </article>
+  
+
+
+      
+    </section>
+  </body>
+</html>
