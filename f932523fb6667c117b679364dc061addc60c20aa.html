@@ -58,8 +58,8 @@ construct using floats. This is slightly more complicated than I expected.</p><p
 <span class="s1">&#39;banana&#39;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">nan</span> <span class="o">==</span> <span class="n">nan</span>
 <span class="bp">False</span>
-</pre></div><p>Somehow, you can correctly insert and get a value out of a dict using a <code>NaN</code>
-key, despite <code>NaN</code> not being equal to itself. However...</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">nan2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">)</span>
+</pre></div><p>Somehow, you can correctly insert and retrieve a value out of a dict using a
+<code>NaN</code> key, despite <code>NaN</code> not being equal to itself. However...</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">nan2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan2</span><span class="p">]</span>
 <span class="ne">KeyError</span><span class="p">:</span> <span class="n">nan</span>
 </pre></div><p>If you use a <em>different</em> <code>NaN</code>, it doesn't work! The secret is that Python
@@ -89,24 +89,24 @@ thing.</p><h2>JavaScript</h2><div class="highlight"><pre><span></span><span clas
 <span class="s1">&#39;banana&#39;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nx">nan</span> <span class="o">===</span> <span class="nx">nan</span>
 <span class="kc">false</span>
-</pre></div><p>Again, somehow you can correctly insert and get a value out of an object using
-a <code>NaN</code> key. However...</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nx">nan2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+</pre></div><p>Again, somehow you can correctly insert and retrieve a value out of an object
+using a <code>NaN</code> key. However...</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nx">nan2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nx">d</span><span class="p">[</span><span class="nx">nan2</span><span class="p">]</span>
 <span class="s1">&#39;banana&#39;</span>
 </pre></div><p>This time, different <code>NaN</code>s both index to the same value! This is because
 JavaScript likes to stringify its keys before hashing or checking anything, so
 both of these <code>NaN</code>s get turned into <code>'NaN'</code>:</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nx">d</span><span class="p">[</span><span class="s1">&#39;NaN&#39;</span><span class="p">]</span>
 <span class="s1">&#39;banana&#39;</span>
-</pre></div><p>Less neat, but it's more intuitive than Python's implementation, which makes it
-less likely to cause hard-to-find bugs.</p><h2>Lua</h2><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">nan</span> <span class="o">=</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
+</pre></div><p>Less neat, but it's more intuitive than Python's implementation, which makes
+hard-to-find bugs less likely.</p><h2>Lua</h2><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">nan</span> <span class="o">=</span> <span class="mi">0</span><span class="o">/</span><span class="mi">0</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;banana&#39;</span>
 <span class="n">table</span> <span class="n">index</span> <span class="n">is</span> <span class="n">NaN</span>
 </pre></div><p>Lua throws an error. That's okay too.</p><h2>Mask</h2><p>I haven't quite decided yet, but I'm leaning towards using the
 <a href="https://rust-bio.github.io/rust-bio/ordered_float/struct.OrderedFloat.html">ordered-float</a>
 crate, which contradicts the IEEE standard and adds the reflexive property back
-into <code>NaN</code>s. This would provide similar behavior to JS regarding <code>NaN</code>, but
-would avoid some of the nasty consequences of stringifying all keys.</p>
+into <code>NaN</code>s. This would provide intuitive behavior like JS, but would avoid
+some of the nasty consequences of stringifying all keys.</p>
     </article>
   
 
