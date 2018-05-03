@@ -64,7 +64,7 @@ actually uses an identity check <em>before</em> an equality check.</p><div class
 dict lookup succeeds. Because <code>nan2</code> is a different object, the identity check
 fails, and lookup moves to the equality check. Because <code>NaN</code> is not equal to
 itself, the equality check also fails, and the lookup aborts with a <code>KeyError</code>.
-This means that we can use <em>both</em> <code>NaN</code> objects as keys successfully.</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;apple&#39;</span>
+This means that we can use <em>both</em> <code>NaN</code> objects as distinct keys.</p><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;apple&#39;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
 <span class="p">{</span><span class="n">nan</span><span class="p">:</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="n">nan</span><span class="p">:</span> <span class="s1">&#39;apple&#39;</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">nan</span><span class="p">]</span>
