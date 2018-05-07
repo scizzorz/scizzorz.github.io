@@ -1,5 +1,5 @@
 target = '.'
-baseurl = 'https://scizzorz.github.io'
+baseurl = 'https://scizzorz.com'
 hrefsuffix = false
 paths = [
   'general',
