@@ -7,3 +7,6 @@
 [submodule "mask"]
 	path = mask
 	url = https://github.com/scizzorz/slag-mask.git
+[submodule "bq"]
+	path = bq
+	url = https://github.com/scizzorz/bare-quest-pico8.git
