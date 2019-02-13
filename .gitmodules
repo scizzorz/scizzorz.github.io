@@ -1,9 +1,9 @@
 [submodule "general"]
-	path = general
+	path = streams/general
 	url = https://github.com/scizzorz/slag-general.git
 [submodule "python"]
-	path = python
+	path = streams/python
 	url = https://github.com/scizzorz/slag-python.git
 [submodule "mask"]
-	path = mask
+	path = streams/mask
 	url = https://github.com/scizzorz/slag-mask.git
