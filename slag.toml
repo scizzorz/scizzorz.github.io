@@ -5,5 +5,4 @@ paths = [
   'general',
   'python',
   'mask',
-  'barequest',
 ]
