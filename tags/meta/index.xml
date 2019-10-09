@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>meta on scizzorz.com</title>
-    <link>scizzorz.com/tags/meta/</link>
-    <description>Recent content in meta on scizzorz.com</description>
+    <title>meta on scizzorz</title>
+    <link>https://scizzorz.com/tags/meta/</link>
+    <description>Recent content in meta on scizzorz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 08 Oct 2019 13:18:10 -0400</lastBuildDate>
     
-	<atom:link href="scizzorz.com/tags/meta/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://scizzorz.com/tags/meta/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Initial Commit</title>
-      <link>scizzorz.com/posts/meta/initial-commit/</link>
+      <link>https://scizzorz.com/posts/meta/initial-commit/</link>
       <pubDate>Tue, 08 Oct 2019 13:18:10 -0400</pubDate>
       
-      <guid>scizzorz.com/posts/meta/initial-commit/</guid>
+      <guid>https://scizzorz.com/posts/meta/initial-commit/</guid>
       <description>Heh.</description>
     </item>
     
