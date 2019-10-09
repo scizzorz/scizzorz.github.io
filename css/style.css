@@ -1,0 +1,243 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Mono&display=swap");
+
+:root {
+  --base0: #2b3235;
+  --base1: #394246;
+  --base2: #495659;
+  --base3: #c7c5bb;
+  --base4: #e1dfda;
+  --base5: #fcfcfc;
+  --red: #ff4b42;
+  --orange: #ff831e;
+  --yellow: #efbb00;
+  --lime: #7ac600;
+  --green: #00c609;
+  --teal: #0bb792;
+  --cyan: #00aeb7;
+  --blue: #3d94ff;
+  --indigo: #757cff;
+  --purple: #ad6bff;
+  --magenta: #f542ff;
+  --pink: #ff32a3;
+
+  --background: var(--base0);
+  --foreground: var(--base5);
+  --codebg: var(--base1);
+  --codefg: var(--base4);
+  --accent: var(--blue);
+  --lowlight: var(--base3);
+
+  --nav: var(--indigo);
+  --byline: var(--indigo);
+
+  --mask: var(--purple);
+  --milk: var(--blue);
+  --mold: var(--yellow);
+  --vx: var(--teal);
+  --xcl: var(--pink);
+  --xtfc: var(--orange);
+
+  --great: var(--green);
+  --good: var(--lime);
+  --okay: var(--yellow);
+  --bad: var(--red);
+}
+
+html {
+  font-family: "Fira Mono", monospace;
+  font-size: 11pt;
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+body {
+  width: 42em;
+  padding: 1em;
+  margin: 0 auto;
+}
+
+@media (max-width: 44em) {
+  body {
+    width: 32em;
+  }
+}
+
+@media (max-width: 34em) {
+  body {
+    width: 22em;
+  }
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--foreground);
+}
+
+ul {
+  list-style: none;
+  margin: 1em 0;
+  padding-left: 1em;
+}
+
+ul ul {
+  margin: 0;
+}
+
+ul li::before {
+  content: "*";
+  color: var(--accent);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+ul.great li::before {
+  content: "+";
+  color: var(--great);
+}
+
+ul.good li::before {
+  content: "+";
+  color: var(--good);
+}
+
+ul.okay li::before {
+  content: "~";
+  color: var(--okay);
+}
+
+ul.bad li::before {
+  content: "-";
+  color: var(--bad);
+}
+
+header {
+  font-weight: bold;
+}
+
+nav a {
+  color: var(--nav);
+  margin-right: 1em;
+}
+
+nav a:hover {
+  color: var(--foreground);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-size: 1em;
+}
+
+h1 {
+  color: var(--lowlight);
+}
+
+h2 {
+  color: var(--lowlight);
+}
+
+h3 {
+  color: var(--lowlight);
+}
+
+h4 {
+  color: var(--foreground);
+  font-weight: normal;
+}
+
+span.great,
+h1.great,
+h2.great,
+h3.great,
+h4.great {
+  color: var(--great);
+}
+
+span.good,
+h1.good,
+h2.good,
+h3.good,
+h4.good {
+  color: var(--good);
+}
+
+span.okay,
+h1.okay,
+h2.okay,
+h3.okay,
+h4.okay {
+  color: var(--okay);
+}
+
+span.bad,
+h1.bad,
+h2.bad,
+h3.bad,
+h4.bad {
+  color: var(--bad);
+}
+
+article,
+section {
+  margin: 2em 0;
+}
+
+strong {
+  font-weight: normal;
+  color: var(--accent);
+}
+
+code {
+  color: var(--accent);
+}
+
+pre code {
+  color: var(--codefg);
+}
+
+pre {
+  text-align: left;
+  display: inline-block;
+  margin: 1.5em auto;
+  width: wrap-content;
+  margin: 0 auto;
+  padding: 0.5em;
+  background-color: var(--codebg);
+}
+
+.byline {
+  color: var(--lowlight);
+  margin: 0.5em 0;
+}
+
+.byline a {
+  color: inherit;
+}
+
+.byline a:hover {
+  color: var(--byline);
+}
+
+.summary {
+  margin: 1em 0;
+}
+
+.more {
+  color: var(--lowlight);
+}
+
+.more a {
+  color: inherit;
+}
+
+.more a:hover {
+  color: var(--foreground);
+}

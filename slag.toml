@@ -1,8 +1,0 @@
-target = '.'
-baseurl = 'https://scizzorz.com'
-hrefsuffix = false
-paths = [
-  'general',
-  'python',
-  'mask',
-]
