@@ -89,16 +89,11 @@ ul ul {
 
 ul li::before {
   content: "*";
+  color: var(--accent);
+  font-weight: bold;
   display: inline-block;
   width: 1em;
   margin-left: -1em;
-}
-
-ul.great li::before,
-ul.good li::before,
-ul.okay li::before,
-ul.bad li::before {
-  font-weight: bold;
 }
 
 ul.great li::before {
