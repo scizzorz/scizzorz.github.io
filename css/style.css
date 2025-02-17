@@ -15,16 +15,16 @@
   --teal: #0bb792;
   --cyan: #00aeb7;
   --blue: #3d94ff;
-  --indigo: #757cff;
+  --indigo: #525aff;
   --purple: #ad6bff;
   --magenta: #f542ff;
   --pink: #ff32a3;
 
-  --background: var(--base0);
-  --foreground: var(--base5);
+  --background: var(--base5);
+  --foreground: var(--base0);
   --codebg: var(--base1);
   --codefg: var(--base4);
-  --accent: var(--blue);
+  --accent: var(--indigo);
   --lowlight: var(--base3);
 
   --nav: var(--indigo);
@@ -45,13 +45,13 @@
 
 html {
   font-family: "Fira Mono", monospace;
-  font-size: 11pt;
+  font-size: 12pt;
   color: var(--foreground);
   background-color: var(--background);
 }
 
 body {
-  width: 42em;
+  width: 43em;
   padding: 1em;
   margin: 0 auto;
 }
